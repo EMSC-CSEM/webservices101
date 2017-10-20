@@ -1,3 +1,5 @@
+#EMSC, Matthieu landes, October 2017
+
 #need at least Tornado 3.0
 #http://www.tornadoweb.org/en/stable/
 from tornado.websocket import websocket_connect
@@ -5,10 +7,22 @@ from tornado.ioloop import IOLoop
 from datetime import timedelta
 import logging
 
-
+import json
 
 echo_uri = 'ws://www.seismicportal.eu/standing_order/websocket'
 PING_TIMEOUT = 15
+
+#You can modify this function to run custom process on the message
+def myprocessing(message):
+    try:
+        data = json.loads(message)
+        info = data['data']['properties']
+        info['action'] = data['action']
+        logging.info('>>>> {action:7} event from {auth:7}, unid:{unid}, T0:{time}, Mag:{mag}, Region: {flynn_region}'.format(**info))
+    except Exception:
+        logging.exception("Unable to parse json message")
+
+#Class that construct a websocker listener.
 class myws():
     conn = None
     keepalive = None
@@ -32,12 +46,13 @@ class myws():
 
     def wsconnection_cb(self, conn):
         self.conn = conn.result()
-        self.conn.on_message = self.message
+        self.conn.on_message = self.process_message
         self.keepalive = IOLoop.instance().add_timeout(timedelta(seconds=PING_TIMEOUT), self.dokeepalive)
 
-    def message(self, message):
+    #Here we receive and process message
+    def process_message(self, message):
         if message is not None:
-            print('>> %s' % message)
+            myprocessing(message)
         else:
             self.close()
 
