@@ -3,15 +3,15 @@
 
 All EMSC services are accessible via the following link : http://www.seismicportal.eu/webservices.html. 
 
-| Name | Description | Status | Direct url |
-| --- | --- | --- | --- |
-| Fdsn-event | web service for EMSC events | Operational | http://www.seismicportal.eu/fdsn-wsevent.html |
-| Flinn-Engdahl Lookup | web service for FE region name | Operational | http://www.seismicportal.eu/feregions.html |
-| Moment Tensors | web service for MT solutions | Operational	| http://vigogne.emsc-csem.org/mtws/ |
-| Testimonies | web service for Felt reports | Operational	| http://vigogne.emsc-csem.org/testimonies-ws/ |
-| EventID | web service for event identifiers|Operational	| http://vigogne.emsc-csem.org/eventid |
-| (near) Realtime Notification | Service via websocket to get real time event notification | Operational	| http://www.seismicportal.eu/realtime.html |
-| Rupture Models | web service for SRCMOD database | In test	| http://vigogne.emsc-csem.org/srcmodws |
+| Name | Description | Direct url |
+| --- | --- | --- | 
+| Fdsn-event | web service for EMSC events | http://www.seismicportal.eu/fdsn-wsevent.html |
+| Flinn-Engdahl Lookup | web service for FE region name | http://www.seismicportal.eu/feregions.html |
+| Moment Tensors | web service for MT solutions |  http://vigogne.emsc-csem.org/mtws/ |
+| Testimonies | web service for Felt reports | http://vigogne.emsc-csem.org/testimonies-ws/ |
+| EventID | web service for event identifiers| http://vigogne.emsc-csem.org/eventid |
+| Rupture Models | web service for SRCMOD database | http://vigogne.emsc-csem.org/srcmodws |
+| (near) Realtime Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
 
 The idea is to access Web services via an url, instead of a "web page" displayed in a browser, and get raw data. The principle is to build an url with some parameters that define the data we want to retrieve.
 Parameters depends on the web service specification - for example the FDSN specification etc. However all web services have a Graphical User Interface (GUI) to facilitate user queries.
