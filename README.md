@@ -16,15 +16,9 @@ All EMSC services are accessible via the following link : http://www.seismicport
 The idea is to access Web services via an url, instead of a "web page" displayed in a browser, and get raw data. The principle is to build an url with some parameters that define the data we want to retrieve.
 Parameters depends on the web service specification - for example the FDSN specification etc. However all web services have a Graphical User Interface (GUI) to facilitate user queries.
 
-Use of web services
- * on the web, useful to separate data access and data display
- * automatic access via script (e.g. python, shell)
-
 # How to use of EMSC web services
 
-This tutorial aims to present the use of EMSC services with concrete examples. 
-
-The [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb) gives a complete walkthrough with python and linux shell of the following use cases.
+This tutorial aims to present the use of EMSC services with 6 seismological use cases. 
 
  1. How to search and find events (*fdsn-event* web service)
 	> Search all earthquakes that occur in October 2017 with a magnitude greater then 6 and get the event id of the last destructive mexican earthquake.
@@ -36,7 +30,7 @@ The [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/e
  3. Get a Flinn Engdhal region name (*Flinn Engdhal* web service)
 	> Search for the Flinn Engdhal region name of the M7.1 Mexico earthquake.
 
- 4. How to manage information from multiple institutes ? (*EventID* web service) 
+ 4. How to manage multiple event identifiers ? (*EventID* web service) 
     > Find the web page of this event on the EMSC, USGS and INGV websites.
 	
  5. Get Moment Tensors (*Moment Tensor* web service)
@@ -47,9 +41,15 @@ The [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/e
 	 > 1. Find how many testimonies EMSC has collected for the  M7.1 Puebla, Mexico earthquake
 	 > 2. Get all testimonies
 
+Everytime we can complete the tutorial :
+ * via the GUI of web services,
+ * or via a scripting approach and the [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb) gives you a complete walkthrough with python and linux shell.
+	
 ## Real Time event Notification
 
-To get EMSC events in real time, you can use a websocket client that listen to *ws://www.seismicportal.eu/standing_order/websocket*. The python program [seismicportal_listener.py](https://github.com/EMSC-CSEM/webservices101/blob/master/seismicportal_listener.py) gives you one example. Just run :
+To get EMSC events in real time, you can use a websocket client that listen to *ws://www.seismicportal.eu/standing_order/websocket*. The python program [seismicportal_listener.py](https://github.com/EMSC-CSEM/webservices101/blob/master/seismicportal_listener.py) gives you one example. 
+
+To test ti just run :
 
 ```python seismicportal_listener.py```
 
