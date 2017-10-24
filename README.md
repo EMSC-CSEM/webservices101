@@ -48,7 +48,7 @@ Everytime we can complete the tutorial :
 
 ### Helper functions in python
 ---
-In order to help user for a first use of EMSC webservice in python, you can look at the [helper_tools.py](https://github.com/EMSC-CSEM/webservices101/blob/master/helper_tools.py) and try these few lines!
+In order to help users for a first use of EMSC webservices in python, you can look at the [helper_tools.py](https://github.com/EMSC-CSEM/webservices101/blob/master/helper_tools.py) and try these few lines!
 ```python
 from helper_tools import *
 
