@@ -17,6 +17,7 @@ The idea is to access Web services via an url, instead of a "web page" displayed
 Parameters depends on the web service specification - for example the FDSN specification etc. However all web services have a Graphical User Interface (GUI) to facilitate user queries.
 
 # How to use of EMSC web services
+---
 
 This tutorial aims to present the use of EMSC services with 6 seismological use cases. 
 
@@ -44,9 +45,34 @@ This tutorial aims to present the use of EMSC services with 6 seismological use 
 Everytime we can complete the tutorial :
  * via the GUI of web services,
  * or via a scripting approach and the [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb) gives you a complete walkthrough with python and linux shell.
-	
-## Real Time event Notification
 
+### Helper functions in python
+---
+In order to help user for a first use of EMSC webservice in python, you can look at the [helper_tools.py](https://github.com/EMSC-CSEM/webservices101/blob/master/helper_tools.py) and try these few lines!
+```python
+from helper_tools import *
+
+print "Web service example using \'text\' format:"
+url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=text"
+res = geturl(url)
+print parsecsv(res['content'])
+
+print "\nWeb service example using \'json\' format:"
+url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=json"
+res = geturl(url)
+print parsejson(res['content'])
+
+
+print "\nWeb service example using \'zip\' format (Testimonies web service):"
+url = "http://vigogne.emsc-csem.org/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
+r = requests.get(url, stream=True)
+print parsezip(r.content)
+
+```
+
+
+## Real Time event Notification
+---
 To get EMSC events in real time, you can use a websocket client that listen to *ws://www.seismicportal.eu/standing_order/websocket*. The python program [seismicportal_listener.py](https://github.com/EMSC-CSEM/webservices101/blob/master/seismicportal_listener.py) gives you one example. 
 
 To test ti just run :
