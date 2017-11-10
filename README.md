@@ -1,6 +1,5 @@
 # EMSC Web Services 101
 
-
 All EMSC services are accessible via the following link : http://www.seismicportal.eu/webservices.html. 
 
 | Name | Description | Direct url |
@@ -79,4 +78,10 @@ To test ti just run :
 
 ```python seismicportal_listener.py```
 
+---
+---
+
+|  | |  | |
+| --- | --- | --- | --- |
+| <img src="https://github.com/EMSC-CSEM/webservices101/blob/master/img/emsc-logo-new-200.png" alt="EMSC logo" width="100" > | <img src="https://github.com/EMSC-CSEM/webservices101/blob/master/img/EPOS_logo_crop.png" alt="EPOS logo" width="100" > | This content has been done within the EPOS project funded by the European Union's Horizon 2020 research and innovation programme under grant agreement No 676564.| <img src="https://github.com/EMSC-CSEM/webservices101/blob/master/img/EC-H2020.png" alt="EC-H2020"  width="300" > |
 
