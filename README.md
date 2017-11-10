@@ -21,7 +21,7 @@ Parameters depends on the web service specification - for example the FDSN speci
 This tutorial aims to present the use of EMSC services with 6 seismological use cases. 
 
  1. How to search and find events (*fdsn-event* web service)
-	> Search all earthquakes that occur in October 2017 with a magnitude greater then 6 and get the event id of the last destructive mexican earthquake.
+	> Search all earthquakes that occur in September and October 2017 with a magnitude greater then 6..5 and get the event id of the last destructive mexican earthquake.
 
  2. Collect earthquake parameters (*fdsn-event* web service)
     > In the following, we consider the M7.1 Puebla, Mexico earthquake on September, 19th 2017. The Seismic Portal identifier (unid) is *20170919_0000091*.
@@ -78,8 +78,6 @@ To test ti just run :
 
 ```python seismicportal_listener.py```
 
----
----
 
 |  | |  | |
 | --- | --- | --- | --- |
