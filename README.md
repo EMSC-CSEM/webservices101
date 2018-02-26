@@ -6,10 +6,10 @@ All EMSC services are accessible via the following link : http://www.seismicport
 | --- | --- | --- | 
 | Fdsn-event | web service for EMSC events | http://www.seismicportal.eu/fdsn-wsevent.html |
 | Flinn-Engdahl Lookup | web service for FE region name | http://www.seismicportal.eu/feregions.html |
-| Moment Tensors | web service for MT solutions |  http://vigogne.emsc-csem.org/mtws/ |
-| Testimonies | web service for Felt reports | http://vigogne.emsc-csem.org/testimonies-ws/ |
-| EventID | web service for event identifiers| http://vigogne.emsc-csem.org/eventid |
-| Rupture Models | web service for SRCMOD database | http://vigogne.emsc-csem.org/srcmodws |
+| Moment Tensors | web service for MT solutions |  http://www.seismicportal.eu/mtws/ |
+| Testimonies | web service for Felt reports | http://www.seismicportal.eu/testimonies-ws/ |
+| EventID | web service for event identifiers| http://www.seismicportal.eu/eventid |
+| Rupture Models | web service for SRCMOD database | http://www.seismicportal.eu/srcmodws |
 | (near) Realtime Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
 
 The idea is to access Web services via an url, instead of a "web page" displayed in a browser, and get raw data. The principle is to build an url with some parameters that define the data we want to retrieve.
@@ -63,7 +63,7 @@ print parsejson(res['content'])
 
 
 print "\nWeb service example using \'zip\' format (Testimonies web service):"
-url = "http://vigogne.emsc-csem.org/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
+url = "http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
 r = requests.get(url, stream=True)
 print parsezip(r.content)
 
