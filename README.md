@@ -1,5 +1,7 @@
 # EMSC Web Services 101
 
+___For the impatient, go directly to the **[Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb)** !___
+
 All EMSC services are accessible via the following link : http://www.seismicportal.eu/webservices.html. 
 
 | Name | Description | Direct url |
@@ -18,7 +20,9 @@ Parameters depends on the web service specification - for example the FDSN speci
 # How to use of EMSC web services
 ---
 
-This tutorial aims to present the use of EMSC services with 6 seismological use cases. 
+This tutorial aims to present the use of EMSC services with 6 seismological use cases. You can complete the tutorial :
+ * via the GUI of web services,
+ * or **via a scripting approach and the [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb) gives you a complete walkthrough** with python and linux shell.
 
  1. How to search and find events (*fdsn-event* web service)
 	> Search all earthquakes that occur in September and October 2017 with a magnitude greater then 6..5 and get the event id of the last destructive mexican earthquake.
@@ -40,10 +44,6 @@ This tutorial aims to present the use of EMSC services with 6 seismological use 
  6. Collect Felt reports (*Testimonies* web service)
 	 > 1. Find how many testimonies EMSC has collected for the  M7.1 Puebla, Mexico earthquake
 	 > 2. Get all testimonies
-
-Everytime we can complete the tutorial :
- * via the GUI of web services,
- * or via a scripting approach and the [Jupyter Notebook](https://github.com/EMSC-CSEM/webservices101/blob/master/emsc_services.ipynb) gives you a complete walkthrough with python and linux shell.
 
 ### Helper functions in python
 ---
