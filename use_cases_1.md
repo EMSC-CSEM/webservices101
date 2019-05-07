@@ -12,34 +12,47 @@
 3 __Find EMSC event ID and UNID.__ With the [EventID](https://www.seismicportal.eu/eventid/) web service, let's look for the EMSC and Seismic Portal identifier:
 
 * Seismic Portal (UNID) : 20190330_0000065
-  > <https://www.seismicportal.eu/eventid/api/convert?source_id=us2000k7ki&source_catalog=USGS&out_catalog=UNID>  
+  > <www.seismicportal.eu/eventid/api/convert?source_id=us2000k7ki&source_catalog=USGS&out_catalog=UNID>  
 
   EMSC ID : 754693
-  > <https://www.seismicportal.eu/eventid/api/convert?source_id=us2000k7ki&source_catalog=USGS&out_catalog=EMSC>
+  > <www.seismicportal.eu/eventid/api/convert?source_id=us2000k7ki&source_catalog=USGS&out_catalog=EMSC>
 
 * Verify the UNID on the search page of the [Seismic Portal](https://www.seismicportal.eu/)
   * mininum magnitude: 5
   * from 2019-03-30 to 2019-03-31
 
-
-* Check EMSC maps:
-  > <https://www.emsc-csem.org/Earthquake/earthquake.php?id=754693>
+* Check EMSC maps for this event:
+  > <www.emsc-csem.org/Earthquake/earthquake.php?id=754693>
 
 4 __Collect Origins, Moment tensors and Felt reports data with EMSC web services.__
 
 * [Fdsn-event](https://www.seismicportal.eu/fdsn-wsevent.html)
-  > www.seismicportal.eu/fdsnws/event/1/query?eventid=20190330_0000065&format=json&includeallorigins=true
+  > <www.seismicportal.eu/fdsnws/event/1/query?eventid=20190330_0000065&format=json&includeallorigins=true>
 
 * [Moment tensors](https://www.seismicportal.eu/mtws/)
-  > <http://www.seismicportal.eu/mtws/api/search?eventid=20190330_0000065&format=text>
+  > <www.seismicportal.eu/mtws/api/search?eventid=20190330_0000065&format=text>
 
 * [Felt reports](http://www.seismicportal.eu/testimonies-ws/)
-  > <http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20190330_0000065]&includeTestimonies=true>
+  > <www.seismicportal.eu/testimonies-ws/api/search?unids=[20190330_0000065]&includeTestimonies=true>
 
 5 __Search more data for events in the same regions.__
 
 * events with more than 500 felt reports with [Felt report ws](https://www.seismicportal.eu/testimonies-ws/):
-  > <http://www.seismicportal.eu/testimonies-ws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
+  > <www.seismicportal.eu/testimonies-ws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
 
 * check moment tensors in the regions with [Moment tensor ws](https://www.seismicportal.eu/mtws/):
-  > <http://www.seismicportal.eu/mtws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
+  > <www.seismicportal.eu/mtws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
+
+6 __Get data in json or QuakeML for this event with [Event](https://www.seismicportal.eu/fdsn-wsevent.html) and [MT](https://www.seismicportal.eu/mtws/) web services.__
+
+* all origins in QuakeML
+  > <www.seismicportal.eu/fdsnws/event/1/query?limit=10&eventid=20190330_0000065&format=xml&includeallorigins=true>
+
+  or in json format
+  > <www.seismicportal.eu/fdsnws/event/1/query?limit=10&eventid=20190330_0000065&format=json&includeallorigins=true>
+
+* all moment tensors in QuakeML
+  > <www.seismicportal.eu/mtws/api/search?eventid=20190330_0000065&format=xml>
+
+  or in json
+  > <www.seismicportal.eu/mtws/api/search?eventid=20190330_0000065&format=json>
