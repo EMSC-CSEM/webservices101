@@ -20,6 +20,9 @@
 * Verify the UNID on the search page of the [Seismic Portal](https://www.seismicportal.eu/)
   * mininum magnitude: 5
   * from 2019-03-30 to 2019-03-31
+  
+  Go to the event page
+  > <www.seismicportal.eu/eventdetails.html?unid=20190330_0000065>
 
 * Check EMSC maps for this event:
   > <www.emsc-csem.org/Earthquake/earthquake.php?id=754693>
