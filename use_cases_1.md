@@ -44,7 +44,7 @@
   > <www.seismicportal.eu/testimonies-ws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
 
 * check moment tensors in the regions with [Moment tensor ws](https://www.seismicportal.eu/mtws/):
-  > <www.seismicportal.eu/mtws/api/search?lat=38&lon=23.2&maxradius=3&minnbtestimonies=500&format=text>
+  > <www.seismicportal.eu/mtws/api/search?lat=38&lon=23.2&maxradius=3&format=text>
 
 6 __Get data in json or QuakeML for this event with [Event](https://www.seismicportal.eu/fdsn-wsevent.html) and [MT](https://www.seismicportal.eu/mtws/) web services.__
 
