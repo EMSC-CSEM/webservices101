@@ -1,16 +1,18 @@
-#EMSC, Matthieu landes, October 2017
+#EMSC, Matthieu landes, October 2019
 
+from __future__ import unicode_literals
 #need at least Tornado 3.0
 #http://www.tornadoweb.org/en/stable/
 from tornado.websocket import websocket_connect
 from tornado.ioloop import IOLoop
-from datetime import timedelta
-import logging
+from tornado import gen
 
+import logging
 import json
+import sys
 
 echo_uri = 'ws://www.seismicportal.eu/standing_order/websocket'
-PING_TIMEOUT = 15
+PING_INTERVAL = 15
 
 #You can modify this function to run custom process on the message
 def myprocessing(message):
@@ -22,62 +24,33 @@ def myprocessing(message):
     except Exception:
         logging.exception("Unable to parse json message")
 
-#Class that construct a websocker listener.
-class myws():
-    conn = None
-    keepalive = None
-    def __init__(self, uri):
-        self.uri = uri
-        self.doconn()
+@gen.coroutine
+def listen(ws):
+    while True:
+        msg = yield ws.read_message()
+        if msg is None:
+            logging.info("close")
+            self.ws = None
+            break
+        myprocessing(msg)
 
-    def doconn(self):
-        logging.info("trying connection to %s"%(self.uri,))
-        w = websocket_connect(self.uri)
-        logging.info("connected, waiting for messages")
-        w.add_done_callback(self.wsconnection_cb)
-
-    def dokeepalive(self):
-        stream = self.conn.protocol.stream
-        if not stream.closed():
-            self.keepalive = stream.io_loop.add_timeout(timedelta(seconds=PING_TIMEOUT), self.dokeepalive)
-            self.conn.protocol.write_ping("")
-        else:
-            self.keepalive = None # should never happen
-
-    def wsconnection_cb(self, conn):
-        self.conn = conn.result()
-        self.conn.on_message = self.process_message
-        self.keepalive = IOLoop.instance().add_timeout(timedelta(seconds=PING_TIMEOUT), self.dokeepalive)
-
-    #Here we receive and process message
-    def process_message(self, message):
-        if message is not None:
-            myprocessing(message)
-        else:
-            self.close()
-
-    def close(self):
-        logging.info('connection closed')
-        if self.keepalive is not None:
-            keepalive = self.keepalive
-            self.keepalive = None
-            IOLoop.instance().remove_timeout(keepalive)
-        self.doconn()
-
-
-
-import signal
-def main():
-    logging.getLogger().setLevel(logging.INFO)
+@gen.coroutine
+def launch_client():
     try:
-        io_loop = IOLoop.instance()
-        signal.signal(signal.SIGTERM, io_loop.stop)
-        myws(echo_uri)
-        IOLoop.instance().start()
-    except KeyboardInterrupt:
-        io_loop.stop()
-
-
+        logging.info("Open WebSocket connection to %s", echo_uri)
+        ws = yield websocket_connect(echo_uri, ping_interval=PING_INTERVAL)
+    except Exception:
+        logging.exception("connection error")
+    else:
+        logging.info("Waiting for messages...")
+        listen(ws)
 
 if __name__ == '__main__':
-    main()
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    ioloop = IOLoop.instance()
+    launch_client()
+    try:
+        ioloop.start()
+    except KeyboardInterrupt:
+        logging.info("Close WebSocket")
+        ioloop.stop()
