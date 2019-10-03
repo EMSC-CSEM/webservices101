@@ -49,23 +49,24 @@ This tutorial aims to present the use of EMSC services with 6 seismological use 
 ---
 In order to help users for a first use of EMSC webservices in python, you can look at the [helper_tools.py](https://github.com/EMSC-CSEM/webservices101/blob/master/helper_tools.py) and try these few lines!
 ```python
+from __future__ import print_function
 from helper_tools import *
 
-print "Web service example using \'text\' format:"
+print("Web service example using \'text\' format:")
 url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=text"
 res = geturl(url)
-print parsecsv(res['content'])
+print(parsecsv(res['content']))
 
-print "\nWeb service example using \'json\' format:"
+print("\nWeb service example using \'json\' format:")
 url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=json"
 res = geturl(url)
-print parsejson(res['content'])
+print(parsejson(res['content']))
 
 
-print "\nWeb service example using \'zip\' format (Testimonies web service):"
+print("\nWeb service example using \'zip\' format (Testimonies web service):")
 url = "http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
 r = requests.get(url, stream=True)
-print parsezip(r.content)
+print(parsezip(r.content))
 
 ```
 

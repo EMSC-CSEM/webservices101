@@ -1,8 +1,8 @@
 #Matthieu Landes, EMSC, 22/10/2017
+from __future__ import print_function
 
 import requests
-from StringIO import StringIO
-from io import BytesIO
+from io import BytesIO, StringIO
 import csv
 import json
 
@@ -25,9 +25,11 @@ def parsecsv(txt, usedict=False):
     """
     if usedict:
         parser = csv.DictReader(StringIO(txt), delimiter='|')
+        #parser = csv.DictReader(txt, delimiter='|')
     else:
         parser = csv.reader(StringIO(txt), delimiter='|')
-        header = parser.next()
+        #parser = csv.reader(txt, delimiter='|')
+        header = next(parser)
 
     return [ line for line in parser]
 
@@ -46,7 +48,7 @@ def parsezip(bufferstr):
     z = zipfile.ZipFile(BytesIO(bufferstr))
     res = {}
     for filename in z.namelist():
-        data = z.read(filename)
+        data = z.read(filename).decode('utf-8')
         A = np.loadtxt(StringIO(data), delimiter=',')
         res[filename] = A
     return res
@@ -55,18 +57,18 @@ def parsezip(bufferstr):
 if __name__ == "__main__":
     #basic example in text
 
-    print "Web service example using \'text\' format:"
+    print("Web service example using \'text\' format:")
     url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=text"
     res = geturl(url)
-    print parsecsv(res['content'])
+    print(parsecsv(res['content']))
 
-    print "\nWeb service example using \'json\' format:"
+    print("\nWeb service example using \'json\' format:")
     url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=json"
     res = geturl(url)
-    print parsejson(res['content'])
+    print(parsejson(res['content']))
 
 
-    print "\nWeb service example using \'zip\' format (Testimonies web service):"
+    print("\nWeb service example using \'zip\' format (Testimonies web service):")
     url = "http://vigogne.emsc-csem.org/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
     r = requests.get(url, stream=True)
-    print parsezip(r.content)
+    print(parsezip(r.content))
