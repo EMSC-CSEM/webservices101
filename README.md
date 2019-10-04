@@ -1,6 +1,6 @@
 # EMSC Web Services 101
 
-___For the impatient, go directly to the **Jupyter Notebook** [markdown](emsc_wervices/emsc_services.md) or [ipynb](emsc_wervices/emsc_services.ipynb) !___
+___For the impatient, go directly to the **Jupyter Notebook** [markdown](emsc_services/emsc_services.md) or [ipynb](emsc_services/emsc_services.ipynb) !___
 
 All EMSC services are accessible via the following link : http://www.seismicportal.eu/webservices.html. 
 
@@ -22,7 +22,7 @@ Parameters depends on the web service specification - for example the FDSN speci
 
 This tutorial aims to present the use of EMSC services with 6 seismological use cases. You can complete the tutorial :
  * via the GUI of web services,
- * or **via a scripting approach and the Jupyter Notebook [markdown](emsc_wervices/emsc_services.md) or [ipynb](emsc_wervices/emsc_services.ipynb) gives you a complete walkthrough** with python and linux shell.
+ * or **via a scripting approach and the Jupyter Notebook [markdown](emsc_services/emsc_services.md) or [ipynb](emsc_services/emsc_services.ipynb) gives you a complete walkthrough** with python and linux shell.
 
  1. How to search and find events (*fdsn-event* web service)
 	> Search all earthquakes that occur in September and October 2017 with a magnitude greater then 6..5 and get the event id of the last destructive mexican earthquake.
@@ -83,4 +83,3 @@ To test ti just run :
 |  | |  | |
 | --- | --- | --- | --- |
 | <img src="img/emsc-logo-new-200.png" alt="EMSC logo" width="100" > | <img src="img/EPOS_logo_crop.png" alt="EPOS logo" width="100" > | This content has been done within the EPOS project funded by the European Union's Horizon 2020 research and innovation programme under grant agreement No 676564.| <img src="img/EC-H2020.png" alt="EC-H2020"  width="300" > |
-
