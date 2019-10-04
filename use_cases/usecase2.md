@@ -1,7 +1,7 @@
 # Use case 2
 
 1 **Search for a given event in the Seismic Portal** via the GUI and get its ID
- - use the [Seismic Portal homepage](https://www.seismicportal.eu) to find an earthquake in Trukey, September 26th with a magnitude >5 thanks to the top right panel.
+ - use the [Seismic Portal homepage](https://www.seismicportal.eu) to find an earthquake in Turkey, September 26th with a magnitude >5 thanks to the top right panel.
   > - unid: 20190926_0000070
   > - longitude latitude: 28,19 40,87
   > - magnitude: Mw 5.7
@@ -11,7 +11,7 @@
  - In the earthquake list, click on the corresponding events.
   > The [event page](https://www.seismicportal.eu/eventdetails.html?unid=20190926_0000070) is displayed and you can check origins, moment tensors and felt reports on the map.
   
-3 **Find the EMSC event identifier** to look for extra informations on the EMSC website.
+3 **Find the EMSC event identifier** to look for extra information on the EMSC website.
  - Used the [eventid service](https://www.seismicportal.eu/eventid/) with the parameters:
  > - source_id: 20190926_0000070
  > - source_catalog: UNID
@@ -28,7 +28,7 @@ And we obtained
 
 5 **Download all moment tensors** for this event
  - Put the unid in the _EVENT ID_ side panel and click on search.
- - Click on the download button on the bottom right corner.
+ - Click on the download button in the bottom right corner.
 
 5 **Search for felt seismic events** close to this event
  - Go to the [felt reports service](https://www.seismicportal.eu/testimonies-ws/) (called testimonies).

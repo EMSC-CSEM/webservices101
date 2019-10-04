@@ -18,7 +18,7 @@
   > <www.seismicportal.eu/eventid/api/convert?source_id=us2000k7ki&source_catalog=USGS&out_catalog=EMSC>
 
 * Verify the UNID on the search page of the [Seismic Portal](https://www.seismicportal.eu/)
-  * mininum magnitude: 5
+  * minimum magnitude: 5
   * from 2019-03-30 to 2019-03-31
   
   Go to the event page

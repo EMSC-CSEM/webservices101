@@ -10,7 +10,7 @@ All EMSC services are accessible via the following link : http://www.seismicport
 | Testimonies | web service for Felt reports | http://www.seismicportal.eu/testimonies-ws/ |
 | EventID | web service for event identifiers| http://www.seismicportal.eu/eventid |
 | Rupture Models | web service for SRCMOD database | http://www.seismicportal.eu/srcmodws |
-| (near) Realtime Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
+| (near) Real Time Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
 
 The idea is to access Web services via an url, instead of a "web page" displayed in a browser, and get raw data. The principle is to build an url with some parameters that define the data we want to retrieve.
 Parameters depends on the web service specification - for example the FDSN specification etc. However all web services have a Graphical User Interface (GUI) to facilitate user queries.
