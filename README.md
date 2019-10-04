@@ -17,7 +17,7 @@ Parameters depends on the web service specification - for example the FDSN speci
 
 ## How to use of EMSC web services
 ---
- * **Two walkthroughs** showing concrete examples : [use case 1](use_cases/usecase1.md) and [use case 2](use_cases/usecase1.md). They guide to :
+ * **Two walkthroughs** showing concrete examples : [use case 1](use_cases/usecase1.md) and [use case 2](use_cases/usecase2.md). They guide to :
    - search for events
    - check for available origins, moment tensors and felt reports
    - find event identifier matches between USGS, EMSC and the Seismic Portal
