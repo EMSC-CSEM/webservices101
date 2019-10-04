@@ -22,7 +22,7 @@ Parameters depends on the web service specification - for example the FDSN speci
    - check for available origins, moment tensors and felt reports
    - find event identifier matches between USGS, EMSC and the Seismic Portal
    - download data
- * **Jupyter Notebook** describing use of webservices in python and shell [link](emsc_services/emsc_services.md), version [ipynb](emsc_services/emsc_services.ipynb).
+ * **Jupyter Notebook** describing use of webservices in python and shell [>link<](emsc_services/emsc_services.md), version [ipynb](emsc_services/emsc_services.ipynb).
 
 
 ### Helper functions in python

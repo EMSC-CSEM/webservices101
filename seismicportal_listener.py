@@ -1,8 +1,7 @@
 #EMSC, Matthieu landes, October 2019
 
 from __future__ import unicode_literals
-#need at least Tornado 3.0
-#http://www.tornadoweb.org/en/stable/
+
 from tornado.websocket import websocket_connect
 from tornado.ioloop import IOLoop
 from tornado import gen
