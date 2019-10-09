@@ -11,22 +11,12 @@
  - In the earthquake list, click on the corresponding events.
   > The [event page](https://www.seismicportal.eu/eventdetails.html?unid=20190926_0000070) is displayed and you can check origins, moment tensors and felt reports on the map.
   
-3 **Find the EMSC event identifier** to look for extra information on the EMSC website.
- - Used the [eventid service](https://www.seismicportal.eu/eventid/) with the parameters:
- > - source_id: 20190926_0000070
- > - source_catalog: UNID
- > - out_catalog: EMSC
-
-And we obtained
- > the evid: 794756 and the EMSC page for this event will be
- <https://www.emsc-csem.org/Earthquake/earthquake.php?id=794756>
-
-4 **Search previous moment tensors in this region**
+3 **Search previous moment tensors in this region**
  - Go to the [moment tensor service](https://www.seismicportal.eu/mtws/)
  - Use the geographic side panel to select _circle_ and fills the boxes longitude=28,19 latitude=40,87 and radius=3 (click on the search button).
  - Go to the _MAP VIEW_ tap and look the beachballs.
 
-5 **Download all moment tensors** for this event
+4 **Download all moment tensors** for this event
  - Put the unid in the _EVENT ID_ side panel and click on search.
  - Click on the download button in the bottom right corner.
 
@@ -38,3 +28,13 @@ And we obtained
 6 **Download felt reports** for this event
  - On the _LIST VIEW_ select the event in your interest. It increments the event count in your _CART_.
  - In your _CART_, click on the green Download button and select _Events and testimonies as csv zipped_.
+
+7 **Find the EMSC event identifier** to look for extra information on the EMSC website.
+ - Used the [eventid service](https://www.seismicportal.eu/eventid/) with the parameters:
+ > - source_id: 20190926_0000070
+ > - source_catalog: UNID
+ > - out_catalog: EMSC
+
+And we obtained
+ > the evid: 794756 and the EMSC page for this event will be
+ <https://www.emsc-csem.org/Earthquake/earthquake.php?id=794756>
