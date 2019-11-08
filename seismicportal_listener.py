@@ -29,7 +29,7 @@ def listen(ws):
         msg = yield ws.read_message()
         if msg is None:
             logging.info("close")
-            self.ws = None
+            ws = None
             break
         myprocessing(msg)
 
