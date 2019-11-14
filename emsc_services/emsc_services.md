@@ -35,6 +35,14 @@ From a practical point of view, we just have to
  2. Download the result
  3. Parse the output
 
+### Remarks on compatibility with python 2/3
+This notebooks has been tested with python2.7. However, this should be compatible with python 3.
+
+
+```python
+from __future__ import print_function
+```
+
 ### 1. First use in python
 
 Let's consider the use case where we want to find seismic events from the September 1st 2017 to end of October with a magnitude greater than 6.5. In this example, we will use the *fdsn-event* web service:
@@ -56,7 +64,6 @@ We define the helper function **geturl** to download data from an url.
 
 ```python
 import requests
-from StringIO import StringIO
 def geturl(url):
     res = requests.get(url, timeout=15)
     return {'status': res.status_code,
@@ -69,7 +76,7 @@ Let's go download the data !
 ```python
 #Download the result
 res = geturl(url)
-print res['content']
+print(res['content'])
 ```
 
     #EventID | Time | Latitude | Longitude | Depth/km | Author | Catalog | Contributor | ContributorID | MagType | Magnitude | MagAuthor | EventLocationName
@@ -87,6 +94,7 @@ Now we need to parse the output !
 
 ```python
 import csv
+from io import StringIO
 def parsecsv(txt, usedict=False):
     if usedict:
         parser = csv.DictReader(StringIO(txt), delimiter='|')
@@ -97,7 +105,7 @@ def parsecsv(txt, usedict=False):
 
 #Parse the result
 for row in parsecsv(res['content']):
-    print row
+    print(row)
 ```
 
     ['20171031_0000002', '2017-10-31T00:42:12.4Z', '-21.71', '169.11', '25.0', 'EMSC', 'EMSC-RTS', 'EMSC', '627167', 'mw', '6.8', 'EMSC', 'SOUTHEAST OF LOYALTY ISLANDS']
@@ -153,16 +161,16 @@ awk -F'|' '!/^#/ {printf "unid:%s, Origin Time:%s, Magnitude:%s, Region:%s\n", $
     unid:20170908_0000020, Origin Time:2017-09-08T04:49:21.2Z, Magnitude:8.1, Region:OFFSHORE CHIAPAS, MEXICO
 
 
-    --2018-02-26 09:09:43--  http://www.seismicportal.eu/fdsnws/event/1/query?start=2017-09-01&end=2017-11-01&format=text&minmag=6.5
+    --2019-11-14 14:33:02--  http://www.seismicportal.eu/fdsnws/event/1/query?start=2017-09-01&end=2017-11-01&format=text&minmag=6.5
     Resolving www.seismicportal.eu (www.seismicportal.eu)... 193.52.21.115
     Connecting to www.seismicportal.eu (www.seismicportal.eu)|193.52.21.115|:80... connected.
     HTTP request sent, awaiting response... 200 OK
     Length: 861 [text/plain]
     Saving to: ‘res.txt’
     
-         0K                                                       100%  103M=0s
+         0K                                                       100% 97.3M=0s
     
-    2018-02-26 09:09:43 (103 MB/s) - ‘res.txt’ saved [861/861]
+    2019-11-14 14:33:02 (97.3 MB/s) - ‘res.txt’ saved [861/861]
     
 
 
@@ -200,7 +208,7 @@ Note the **&format=json** in the url. Now we get the content:
 
 ```python
 info = geturl(url)
-print info['content'][:400]
+print(info['content'][:400])
 ```
 
     {"type":"FeatureCollection","metadata":{"totalCount":6},"features":[{
@@ -229,8 +237,8 @@ And finally the parsing process:
 ```python
 data = parsejson( info['content'])
 
-print "Type of the parsed data:", type(data)
-print "List of keys:", data.keys()
+print("Type of the parsed data:", type(data))
+print("List of keys:", data.keys())
 ```
 
     Type of the parsed data: <type 'dict'>
@@ -242,8 +250,8 @@ In this case, event information is in the 'features' attributes
 
 ```python
 for ev in data['features']:
-    print "***Event:",ev['id']
-    print ev['properties']
+    print("***Event:",ev['id'])
+    print(ev['properties'])
 ```
 
     ***Event: 20171031_0000002
@@ -271,7 +279,7 @@ from obspy import read_events
 url = "http://www.seismicportal.eu/fdsnws/event/1/query?start=2017-09-01&end=2017-11-01&minmag=6.5&format=xml"
 
 data = read_events(url)
-print data
+print(data)
 ```
 
     6 Event(s) in Catalog:
@@ -330,7 +338,7 @@ The easiest way to get the parameters of the main origin is to use the fdsn-even
 url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid={unid}&format=text".format(unid=main_event['unid'])
 res = geturl(url)
 dataev = parsecsv(res['content'])
-print dataev
+print(dataev)
 ```
 
     [['20170919_0000091', '2017-09-19T18:14:38.5Z', '18.59', '-98.47', '50.0', 'EMSC', 'EMSC-RTS', 'EMSC', '619258', 'mw', '7.1', 'EMSC', 'PUEBLA, MEXICO']]
@@ -344,7 +352,7 @@ url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid={unid}&format=js
 res = geturl(url)
 dataev = parsejson(res['content'])
 eqinfo = dataev['properties']
-print eqinfo
+print(eqinfo)
 ```
 
     {u'lastupdate': u'2017-09-19T18:42:00.0Z', u'magtype': u'mw', u'time': u'2017-09-19T18:14:38.5Z', u'lon': -98.47, u'auth': u'EMSC', u'source_id': u'619258', u'depth': 50.0, u'unid': u'20170919_0000091', u'mag': 7.1, u'evtype': u'ke', u'lat': 18.59, u'source_catalog': u'EMSC-RTS', u'flynn_region': u'PUEBLA, MEXICO'}
@@ -356,7 +364,7 @@ Or **xml** (Quakeml)
 ```python
 url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid={unid}&format=xml".format(unid=main_event['unid'])
 dataev = read_events(url)
-print dataev
+print(dataev)
 ```
 
     1 Event(s) in Catalog:
@@ -374,13 +382,13 @@ Note that in both case, these information are not included with the **text** for
 ```python
 %%capture --no-stdout
 #avoid warnings
-print "\n*** With origins"
+print("\n*** With origins")
 url = "http://www.seismicportal.eu/fdsnws/event/1/query\
 ?eventid={unid}&format=xml&includeallorigins=true".format(unid=main_event['unid'])
 dataev = read_events(url)
-print dataev
+print(dataev)
 for ev in dataev:
-    print ev
+    print(ev)
 ```
 
     
@@ -406,13 +414,13 @@ Now including also arrivals:
 
 ```python
 %%capture --no-stdout
-print "\n*** With origins and arrivals"
+print("\n*** With origins and arrivals")
 url = "http://www.seismicportal.eu/fdsnws/event/1/query\
 ?eventid={unid}&format=xml&includeallorigins=true&includearrivals=true".format(unid=main_event['unid'])
 dataev = read_events(url)
-print dataev
+print(dataev)
 for ev in dataev:
-    print ev
+    print(ev)
 ```
 
     
@@ -442,7 +450,7 @@ This web service returns a region name from a geographical location (longitude a
 ```python
 url = "http://www.seismicportal.eu/fe_regions_ws/query?format=json&lat={lat}&lon={lon}"
 res = geturl(url.format(**eqinfo))
-print parsejson(res['content'])
+print(parsejson(res['content']))
 ```
 
     {u'name_s': u'PUEBLA, MEXICO', u'name_h': u'NORTH AMERICA;MEXICO;PUEBLA', u'name_l': u'Puebla, Mexico', u'name_m': u'PUEBLA, MEXICO'}
@@ -467,13 +475,13 @@ iddata = parsecsv(res['content'], usedict=True)
 
 ```python
 for l in iddata:
-    print "* Institute {#catalog:5}, ID: {eventid}\n   url: {url}".format(**l)
+    print("* Institute {#catalog:5}, ID: {eventid}\n   url: {url}".format(**l))
 ```
 
     * Institute EMSC , ID: 619258
        url: http://www.seismicportal.eu/fdsnws/event/1/query?catalog=EMSC-RTS&source_id=619258&format=text
-    * Institute ISC  , ID: 610994335
-       url: http://isc-mirror.iris.washington.edu/fdsnws/event/1/query?eventid=610994335
+    * Institute ISC  , ID: 611834902
+       url: http://isc-mirror.iris.washington.edu/fdsnws/event/1/query?eventid=611834902
     * Institute USGS , ID: us2000ar20
        url: https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us2000ar20&format=csv
     * Institute INGV , ID: 17111031
@@ -493,7 +501,7 @@ First we try to find moment tensors data for one event (here the M7.1 seismic ev
 ```python
 url = "http://www.seismicportal.eu/mtws/api/search?format=text&eventid={unid}"
 res = geturl(url.format(unid=main_event['unid']))
-print res['content'][:1000]
+print(res['content'][:1000])
 ```
 
     #ev_unid|ev_region|ev_event_time|ev_latitude|ev_longitude|ev_mag_type|ev_mag_value|ev_depth|mt_source_catalog|mt_region|mt_centroid_time|mt_latitude|mt_longitude|mt_mw|mt_depth|mt_strike_1|mt_dip_1|mt_rake_1|mt_strike_2|mt_dip_2|mt_rake_2|mt_tval|mt_tplung|mt_taz|mt_pval|mt_pplung|mt_paz|mt_nval|mt_nplung|mt_naz|mt_mrr|mt_mtt|mt_mpp|mt_mrt|mt_mrp|mt_mtp|mt_per_dc|mt_per_clvd|mt_per_iso|mt_m0
@@ -506,7 +514,7 @@ print res['content'][:1000]
 ```python
 mt_data = parsecsv(res['content'], usedict=True)
 for mt in mt_data:
-    print "Mt from {mt_source_catalog:10}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt)
+    print("Mt from {mt_source_catalog:10}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt))
 ```
 
     Mt from GCMT      , Strike: 108, Dip: 44, Rake: -98
@@ -527,7 +535,7 @@ url= "http://www.seismicportal.eu/mtws/api/search\
 ?source_catalog=USGS&eventid=20170919_0000091&format=text"
 mt = parsecsv(geturl(url)['content'], usedict=True)[0] #we get a list with only one element.
 t = map(float, [mt['mt_mrr'], mt['mt_mtt'], mt['mt_mpp'], mt['mt_mrt'], mt['mt_mrp'], mt['mt_mtp']])
-print "USGS solution"
+print("USGS solution")
 beachball(t, width=200);
 
 ```
@@ -536,7 +544,7 @@ beachball(t, width=200);
 
 
 
-![png](emsc_services_files/emsc_services_50_1.png)
+![png](emsc_services_files/emsc_services_52_1.png)
 
 
 ### Case of multiple events
@@ -554,10 +562,10 @@ mt_data = parsecsv(res['content'], usedict=True)
 
 #how many distinct events?
 allid = set([ mt['#ev_unid'] for mt in mt_data])
-print "Data contains {0} events for {1} Mt\n".format(len(allid), len(mt_data))
+print("Data contains {0} events for {1} Mt\n".format(len(allid), len(mt_data)))
 
 for mt in mt_data:
-    print "{mt_source_catalog:6}, Unid: {#ev_unid}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt)
+    print("{mt_source_catalog:6}, Unid: {#ev_unid}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt))
 ```
 
     Data contains 6 events for 30 Mt
@@ -602,7 +610,7 @@ url = 'http://www.seismicportal.eu/mtws/api/search\
 ?starttime=2017-10-01&endtime=2017-10-19&minmag=6&format=text&preferredOnly=true'
 mt_data = parsecsv(geturl(url)['content'], usedict=True)
 for mt in mt_data:
-    print "{mt_source_catalog:6}, Unid: {#ev_unid}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt)
+    print("{mt_source_catalog:6}, Unid: {#ev_unid}, Strike: {mt_strike_1}, Dip: {mt_dip_1}, Rake: {mt_rake_1}".format(**mt))
 ```
 
     GCMT  , Unid: 20171018_0000044, Strike: 214, Dip: 21, Rake: 97
@@ -623,20 +631,20 @@ The search parameters are simple and looks like other web services specification
 ```python
 url = "http://www.seismicportal.eu/testimonies-ws/api/search?eventid={unid}&format=json"
 tdata = parsejson(geturl(url.format(**main_event))['content'])
-print tdata
+print(tdata)
 ```
 
-    [{u'ev_unid': u'20170919_0000091', u'ev_mag_value': 7.1, u'ev_event_time': u'2017-09-19 18:14:38.5 UTC', u'ev_mag_type': u'mw', u'ev_nbtestimonies': 742, u'ev_depth': 50, u'full_count': 1, u'ev_last_update': u'2017-11-20 02:55:06 UTC', u'ev_region': u'PUEBLA, MEXICO', u'ev_longitude': -98.47, u'ev_deltatime': u'@ 2 mons 8 hours 40 mins 27.5 secs', u'ev_id': 5463, u'ev_latitude': 18.59}]
+    [{u'ev_unid': u'20170919_0000091', u'ev_mag_value': 7.1, u'ev_event_time': u'2017-09-19 18:14:38.5 UTC', u'ev_mag_type': u'mw', u'ev_nbtestimonies': 744, u'ev_depth': 50, u'full_count': 1, u'ev_last_update': u'2018-08-22 21:51:05 UTC', u'ev_region': u'PUEBLA, MEXICO', u'ev_longitude': -98.47, u'ev_deltatime': u'@ 11 mons 3 days 3 hours 36 mins 26.5 secs', u'ev_id': 5463, u'ev_latitude': 18.59}]
 
 
 Here we don't have the values of the testimony intensities but we get the number of testimonies
 
 
 ```python
-print 'Nbr of testimonies:',tdata[0]['ev_nbtestimonies']
+print('Nbr of testimonies:',tdata[0]['ev_nbtestimonies'])
 ```
 
-    Nbr of testimonies: 742
+    Nbr of testimonies: 744
 
 
 ### Access to all testimonies (in shell)
@@ -655,21 +663,21 @@ ls -l
 
     total 112
     -rw-rw-rw- 1 root root 16868 Jan  1  1980 20170919_0000091.txt
-    -rw-r--r-- 1 root root 76810 Feb 26 09:09 emsc_services.ipynb
-    -rw-rw-rw- 1 root root   861 Feb 26 09:09 res.txt
-    -rw-r--r-- 1 root root 10240 Feb 26 09:09 res.zip
+    -rw-r--r-- 1 root root 77541 Nov 14 14:32 emsc_services.ipynb
+    -rw-rw-rw- 1 root root   861 Nov 14 14:33 res.txt
+    -rw-r--r-- 1 root root 10240 Nov 14 14:33 res.zip
 
 
-    --2018-02-26 09:09:57--  http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true
+    --2019-11-14 14:33:15--  http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true
     Resolving www.seismicportal.eu (www.seismicportal.eu)... 193.52.21.115
     Connecting to www.seismicportal.eu (www.seismicportal.eu)|193.52.21.115|:80... connected.
     HTTP request sent, awaiting response... 200 OK
     Length: unspecified [application/json]
     Saving to: ‘res.zip’
     
-         0K ..........                                             85.8M=0s
+         0K ..........                                             30.1M=0s
     
-    2018-02-26 09:09:58 (85.8 MB/s) - ‘res.zip’ saved [10240]
+    2019-11-14 14:33:15 (30.1 MB/s) - ‘res.zip’ saved [10240]
     
 
 
@@ -732,8 +740,8 @@ from io import BytesIO
 url = "http://www.seismicportal.eu/testimonies-ws/api/search?unids=[{unid}]&includeTestimonies=true"
 r = requests.get(url.format(**main_event), stream=True)
 z = zipfile.ZipFile(BytesIO(r.content))
-print 'Requested event:' ,main_event
-print 'Downloaded result:', z.namelist()
+print('Requested event:' ,main_event)
+print('Downloaded result:', z.namelist())
 ```
 
     Requested event: {'unid': '20170919_0000091'}
@@ -746,7 +754,7 @@ We can verify that the downloaded data contains only one file for our main event
 ```python
 #Expected name
 filename = "{unid}.txt".format(**main_event)
-data = z.read(filename)
+data = z.read(filename).decode('utf-8')
 ```
 
 To parse the data, a simple numpy *loadtxt* does the job.
@@ -756,18 +764,18 @@ To parse the data, a simple numpy *loadtxt* does the job.
 import numpy as np
 
 A = np.loadtxt(StringIO(data), delimiter=',')
-print A.shape
-print A
+print(A.shape)
+print(A)
 ```
 
-    (742, 4)
+    (744, 4)
     [[-96.133   19.1854   4.       4.5   ]
      [-99.1332  19.4319   6.       7.1   ]
      [-99.1332  19.4326   5.       5.8   ]
      ..., 
-     [-97.9234  19.3185   4.       4.5   ]
      [-99.1646  19.4319  10.      10.    ]
-     [-98.2208  19.0313   5.       5.8   ]]
+     [-98.2208  19.0313   5.       5.8   ]
+     [-99.1332  19.4326   6.       7.1   ]]
 
 
 That's all for this tutorial !
