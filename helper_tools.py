@@ -1,4 +1,4 @@
-#Matthieu Landes, EMSC, 22/10/2017
+# Matthieu Landes, EMSC, 22/10/2017
 from __future__ import print_function
 
 import requests
@@ -18,6 +18,7 @@ def geturl(url):
     return {'status': res.status_code,
             'content': res.text}
 
+
 def parsecsv(txt, usedict=False):
     """
     Parse txt input as csv
@@ -25,13 +26,11 @@ def parsecsv(txt, usedict=False):
     """
     if usedict:
         parser = csv.DictReader(StringIO(txt), delimiter='|')
-        #parser = csv.DictReader(txt, delimiter='|')
     else:
         parser = csv.reader(StringIO(txt), delimiter='|')
-        #parser = csv.reader(txt, delimiter='|')
         header = next(parser)
 
-    return [ line for line in parser]
+    return [line for line in parser]
 
 
 def parsejson(txt):
@@ -39,6 +38,7 @@ def parsejson(txt):
     Parse txt input as json
     """
     return json.loads(txt)
+
 
 def parsezip(bufferstr):
     """
@@ -55,7 +55,7 @@ def parsezip(bufferstr):
 
 
 if __name__ == "__main__":
-    #basic example in text
+    # basic example in text
 
     print("Web service example using \'text\' format:")
     url = "http://www.seismicportal.eu/fdsnws/event/1/query?eventid=20170919_0000091&format=text"
@@ -67,8 +67,7 @@ if __name__ == "__main__":
     res = geturl(url)
     print(parsejson(res['content']))
 
-
-    print("\nWeb service example using \'zip\' format (Testimonies web service):")
+    print("\nWeb service example using \'zip\' format (Felt reports web service):")
     url = "http://vigogne.emsc-csem.org/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
     r = requests.get(url, stream=True)
     print(parsezip(r.content))
