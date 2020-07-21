@@ -7,7 +7,7 @@ All EMSC services are accessible via the following link : http://www.seismicport
 | Fdsn-event | web service for EMSC events | http://www.seismicportal.eu/fdsn-wsevent.html |
 | Flinn-Engdahl Lookup | web service for FE region name | http://www.seismicportal.eu/feregions.html |
 | Moment Tensors | web service for MT solutions |  http://www.seismicportal.eu/mtws/ |
-| Testimonies | web service for Felt reports | http://www.seismicportal.eu/testimonies-ws/ |
+| Felt reports | web service for Felt reports | http://www.seismicportal.eu/testimonies-ws/ |
 | EventID | web service for event identifiers| http://www.seismicportal.eu/eventid |
 | Rupture Models | web service for SRCMOD database | http://www.seismicportal.eu/srcmodws |
 | (near) Real Time Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
@@ -43,7 +43,7 @@ res = geturl(url)
 print(parsejson(res['content']))
 
 
-print("\nWeb service example using \'zip\' format (Testimonies web service):")
+print("\nWeb service example using \'zip\' format (Felt reports web service):")
 url = "http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_0000091]&includeTestimonies=true"
 r = requests.get(url, stream=True)
 print(parsezip(r.content))
