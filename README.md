@@ -12,15 +12,14 @@ All EMSC services are accessible via the following link : http://www.seismicport
 | Rupture Models | web service for SRCMOD database | http://www.seismicportal.eu/srcmodws |
 | (near) Real Time Notification | Service via websocket to get real time event notification | http://www.seismicportal.eu/realtime.html |
 
-The idea is to access Web services via an url, instead of a "web page" displayed in a browser, and get raw data. The principle is to build an url with some parameters that define the data we want to retrieve.
-Parameters depends on the web service specification - for example the FDSN specification etc. However all web services have a Graphical User Interface (GUI) to facilitate user queries.
+The idea is to access web services via an url, rather than a "web page" displayed in a browser, and retrieve raw data. The principle is to build an url with some parameters that define the data we want to retrieve. The parameters depend on the web service specification - for example the FDSN specification etc. However, all web services have a graphical user interface (GUI) to facilitate user queries.
 
 ## How to use of EMSC web services
 ---
  * **Two walkthroughs** showing concrete examples : [use case 1](use_cases/usecase1.md) and [use case 2](use_cases/usecase2.md). They guide to :
    - search for events
    - check for available origins, moment tensors and felt reports
-   - find event identifier matches between USGS, EMSC and the Seismic Portal
+   - find event identifiers among USGS, EMSC and the Seismic Portal
    - download data
 
 * **Continuous check for new events** [use case 3](use_cases/usecase3.md) describes how to continuously receive latest information on events that are published on the fdsn-event service.

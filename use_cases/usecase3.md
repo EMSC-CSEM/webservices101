@@ -5,7 +5,9 @@ This use case addresses the situation where one user wants to receive fdsn-event
  - the [(near) Real Time Notification service](http://www.seismicportal.eu/realtime.html)
  - the [Fdsn-event service](http://www.seismicportal.eu/fdsn-wsevent.html)
 
-1 **The correct approach** is to set up a listener with the nRT notification service, which opens a websocket connection between the client (your listener) and the seismicportal server. The notifications are for new events and updates. Once this listener is running, it's possible to run a custom function (see follong step) for each message received. Note that the **ugly approach** might be to repeatedly request the fdsn-event, for example for the last 10 events... It works, but as a lot of users do this, it can overload the fdsn-event service for little (or none) valuable information per request.
+1 **The correct approach** is to set up a listener with the nRT notification service, which opens a websocket connection between the client (your listener) and the Seismic Portal server. The notifications are for new events and updates. Once this listener is running, it's possible to run a custom function (see follong step) for each message received. 
+
+Note that the **ugly approach** might be to repeatedly request the fdsn-event, for example for the last 10 events... It works, but as a lot of users do this, it can overload the fdsn-event service for little (or none) valuable information per request.
 
 2 **Message content** given by the nRT notificcation service. The message sent by the service are geojson and have this structure:
 
@@ -48,10 +50,10 @@ Where `action` is "update" or "create" if the message is for an update or a new 
   > - magnitude >= 5.0
   > - -7 <= longitude < 11 and 41 <= latitude < 52 (metropolitan France)
 
-and if the criteria are valid, we will search for the fdsn-event information using the UNID identifier given in the message
+If the criteria are valid, we will search for the fdsn-event information using the UNID parameter (given in the message)
  > www.seismicportal.eu/fdsnws/event/1/query?eventid=UNID&format=xml
 
-and write the quakeml content in the `output/` directory.
+Finally we write the quakeml content in the `output/` directory.
 
 
 4 Using python3, **a first impementation** is done using the [seismicportal_listener.py](../seismicportal_listener.py) script and by modifying the `myprocessing` function. For instance, this function could be:
@@ -82,7 +84,7 @@ def myprocessing(message, diroutput='.'):
         url = f'https://www.seismicportal.eu/fdsnws/event/1/query?eventid={eqinfo["unid"]}&format=xml'
         res = requests.get(url)
         if res.status_code != 200:
-            logging.error('unid %s not in the seismicportal')
+            logging.error('unid %s not in the Seismic Portal')
             return
         filename = diroutput / f'event_{eqinfo["unid"]}.qml'
         logging.info('write %s', filename)
@@ -95,4 +97,4 @@ def myprocessing(message, diroutput='.'):
 And the resulting python script is [listen_new_event.py](listen_new_event.py).
 
 
-5 Note that this script may stop if the connection has problems. You will need to add a check that this listener is running and restart it if necessary! On linux server you can do that with a Cron job [link](https://en.wikipedia.org/wiki/Cron) for instance.
+5 Note that this script may stop if the connection has problems. You will need to add a check that this listener is running and restart it if necessary! On linux server you can do that with a Cron job [>link<](https://en.wikipedia.org/wiki/Cron) for instance.
