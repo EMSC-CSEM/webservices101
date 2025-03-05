@@ -22,7 +22,22 @@ Parameters depends on the web service specification - for example the FDSN speci
    - check for available origins, moment tensors and felt reports
    - find event identifier matches between USGS, EMSC and the Seismic Portal
    - download data
+
+* **Continuous check for new events** [use case 3](use_cases/usecase3.md) describes how to continuously receive latest information on events that are published on the fdsn-event service.
+
  * **Jupyter Notebook** describing use of webservices in python and shell [>link<](emsc_services/emsc_services.md), version [ipynb](emsc_services/emsc_services.ipynb).
+
+
+## Real Time event Notification
+---
+To get EMSC events in real time, you can use a websocket client that listen to *ws://www.seismicportal.eu/standing_order/websocket*. The python program [seismicportal_listener.py](seismicportal_listener.py) gives you one example. 
+
+To test it, just run :
+
+```bash
+python seismicportal_listener.py
+```
+
 
 
 ### Helper functions in python
@@ -48,17 +63,6 @@ url = "http://www.seismicportal.eu/testimonies-ws/api/search?unids=[20170919_000
 r = requests.get(url, stream=True)
 print(parsezip(r.content))
 
-```
-
-
-## Real Time event Notification
----
-To get EMSC events in real time, you can use a websocket client that listen to *ws://www.seismicportal.eu/standing_order/websocket*. The python program [seismicportal_listener.py](seismicportal_listener.py) gives you one example. 
-
-To test ti just run :
-
-```bash
-python seismicportal_listener.py
 ```
 
 
